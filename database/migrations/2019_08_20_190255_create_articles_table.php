@@ -1,13 +1,11 @@
 <?php
+/** @noinspection DuplicatedCode */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class CreateNewsTable
- */
-class CreateNewsTable extends Migration
+class CreateArticlesTable extends Migration
 {
     /**
      * Schema table name to migrate
@@ -17,7 +15,6 @@ class CreateNewsTable extends Migration
 
     /**
      * Run the migrations.
-     * @table news
      *
      * @return void
      */
@@ -29,6 +26,8 @@ class CreateNewsTable extends Migration
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('source_id');
             $table->string('title', 250);
+            $table->string('author', 100);
+            $table->string('description', 250);
             $table->text('content');
             $table->string('url', 250);
             $table->string('url_to_image', 250)->nullable();
@@ -57,8 +56,8 @@ class CreateNewsTable extends Migration
      *
      * @return void
      */
-     public function down()
-     {
-       Schema::dropIfExists($this->tableName);
-     }
+    public function down()
+    {
+        Schema::dropIfExists($this->tableName);
+    }
 }

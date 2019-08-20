@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property \Illuminate\Database\Eloquent\Collection $sources
  *
- * @package App
+ * @package App\Models
  */
 class Robot extends Model
 {
@@ -47,6 +47,6 @@ class Robot extends Model
      */
     public function sources()
 	{
-		return $this->belongsToMany(\App\Source::class, 'source_has_robots', 'robot_id');
+		return $this->belongsToMany(\App\Models\Source::class, 'source_has_robots', 'robot_id');
 	}
 }

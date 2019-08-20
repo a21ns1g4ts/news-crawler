@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,12 +17,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $update_at
  *
- * @property \App\Category $category
- * @property \App\Source $source
+ * @property \App\Models\Category $category
+ * @property \App\Models\Source $source
  *
- * @package App
+ * @package App\Models
  */
-class News extends Model
+class Article extends Model
 {
     /**
      * @var bool
@@ -49,6 +49,8 @@ class News extends Model
      */
     protected $fillable = [
 		'category_id',
+        'description',
+        'author',
 		'source_id',
 		'title',
 		'content',
@@ -62,7 +64,7 @@ class News extends Model
      */
     public function category()
 	{
-		return $this->belongsTo(\App\Category::class);
+		return $this->belongsTo(\App\Models\Category::class);
 	}
 
     /**
@@ -70,6 +72,6 @@ class News extends Model
      */
     public function source()
 	{
-		return $this->belongsTo(\App\Source::class);
+		return $this->belongsTo(\App\Models\Source::class);
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Database\Eloquent\Collection $news
  * @property \Illuminate\Database\Eloquent\Collection $robots
  *
- * @package App
+ * @package App\Models
  */
 class Source extends Model
 {
@@ -53,7 +53,7 @@ class Source extends Model
      */
     public function news()
 	{
-		return $this->hasMany(\App\News::class);
+		return $this->hasMany(\App\Models\Article::class);
 	}
 
     /**
@@ -61,6 +61,6 @@ class Source extends Model
      */
     public function robots()
 	{
-		return $this->belongsToMany(\App\Robot::class, 'source_has_robots', 'source_id', 'robot_id');
+		return $this->belongsToMany(\App\Models\Robot::class, 'source_has_robots', 'source_id', 'robot_id');
 	}
 }

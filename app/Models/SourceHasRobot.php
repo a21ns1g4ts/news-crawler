@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,10 +10,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $source_id
  * @property int $robot_id
  *
- * @property \App\Robot $robot
- * @property \App\Source $source
+ * @property \App\Models\Robot $robot
+ * @property \App\Models\Source $source
  *
- * @package App
+ * @package App\Models
  */
 class SourceHasRobot extends Model
 {
@@ -48,7 +48,7 @@ class SourceHasRobot extends Model
      */
     public function robot()
 	{
-		return $this->belongsTo(\App\Robot::class, 'robot_id');
+		return $this->belongsTo(\App\Models\Robot::class, 'robot_id');
 	}
 
     /**
@@ -56,6 +56,6 @@ class SourceHasRobot extends Model
      */
     public function source()
 	{
-		return $this->belongsTo(\App\Source::class);
+		return $this->belongsTo(\App\Models\Source::class);
 	}
 }

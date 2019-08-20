@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property \Illuminate\Database\Eloquent\Collection $news
  *
- * @package App
+ * @package App\Models
  */
 class Category extends Model
 {
@@ -35,6 +35,6 @@ class Category extends Model
      */
     public function news()
 	{
-		return $this->hasMany(\App\News::class);
+		return $this->hasMany(\App\Models\Article::class);
 	}
 }

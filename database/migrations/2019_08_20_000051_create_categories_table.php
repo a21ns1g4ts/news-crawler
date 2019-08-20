@@ -26,7 +26,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name', 100)->nullable();
             $table->string('description', 250)->nullable();
 
-            $table->unique(["name"], 'name_UNIQUE');
+            $table->unique(["name"], 'name__category_UNIQUE');
 
             $table->unique(["id"], 'id_UNIQUE');
         });

@@ -25,7 +25,7 @@ class CreateSourceHasRobotsTable extends Migration
             $table->unsignedInteger('source_id');
             $table->unsignedInteger('robot_id');
 
-            $table->index(["robots_id"], 'fk_source_has_robots_robot_idx');
+            $table->index(["robot_id"], 'fk_source_has_robots_robot_idx');
 
             $table->index(["source_id"], 'fk_source_has_robots_source_idx');
 
@@ -35,7 +35,7 @@ class CreateSourceHasRobotsTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreign('robots_id', 'fk_source_has_robots_robot_idx')
+            $table->foreign('robot_id', 'fk_source_has_robots_robot_idx')
                 ->references('id')->on('robots')
                 ->onDelete('no action')
                 ->onUpdate('no action');

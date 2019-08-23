@@ -91,7 +91,7 @@ class ProcessorNews implements ProcessorContract
 
             $textToScan = isset($data['content']) ? $data['content'] : $data['description'];
 
-            $data['category'] = $this->getCategory($textToScan);
+            $data['category'] = $this->getCategory($textToScan, $data['url']);
 
             $this->articleRepository->sync($data, $this->source);
         });
@@ -99,15 +99,21 @@ class ProcessorNews implements ProcessorContract
 
     /**
      * @param $content
+     * @param $url
      * @return string
      */
-    private function getCategory($content)
+    private function getCategory($content, $url)
     {
-        $discovery = app(DiscoveryCategoryContract::class, ['content' => $content]);
 
-        $discovery->detect();
+        $article = $this->articleRepository->getByUrl($url);
 
-        $category = $discovery->getCategory();
+        if (!$article){
+            $discovery = app(DiscoveryCategoryContract::class, ['content' => $content]);
+            $discovery->detect();
+            $category = $discovery->getCategory();
+        }else{
+            $category = $article->cateogory;
+        }
 
         if ($category){
             $category = Category::getByName($category);

@@ -75,7 +75,7 @@ class NewsQueue implements QueueContract
      */
     public function removeFromQueue(Source $source)
     {
-        $source->updated_at= Carbon::now()->timestamp;
+        $source->updated_at = Carbon::now()->timestamp;
         $source->save();
     }
 }

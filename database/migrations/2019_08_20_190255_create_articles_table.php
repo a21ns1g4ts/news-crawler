@@ -1,17 +1,19 @@
 <?php
-/** @noinspection DuplicatedCode */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateArticlesTable
+ */
 class CreateArticlesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'news';
+    public $tableName = 'articles';
 
     /**
      * Run the migrations.
@@ -26,13 +28,13 @@ class CreateArticlesTable extends Migration
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('source_id');
             $table->string('title', 250);
-            $table->string('author', 100);
-            $table->string('description', 250);
-            $table->text('content');
+            $table->string('author', 100)->nullable();
+            $table->text('description');
+            $table->text('content')->nullable();
             $table->string('url', 250);
             $table->string('url_to_image', 250)->nullable();
             $table->timestamp('created_at')->nullable();
-            $table->timestamp('update_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
 
             $table->index(["category_id"], 'fk_news_category_idx');
 
@@ -40,7 +42,7 @@ class CreateArticlesTable extends Migration
 
 
             $table->foreign('source_id', 'fk_news_targets_idx')
-                ->references('id')->on('source')
+                ->references('id')->on('sources')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 

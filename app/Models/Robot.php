@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Database\Eloquent\Collection $sources
  *
  * @package App\Models
+ * @method create($data)
  */
 class Robot extends Model
 {

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class News
+ * Class Article
  *
  * @property int $id
  * @property int $category_id
@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \App\Models\Source $source
  *
  * @package App\Models
+ * @method create($data)
  */
 class Article extends Model
 {
@@ -41,7 +42,8 @@ class Article extends Model
      * @var array
      */
     protected $dates = [
-		'update_at'
+		'updated_at',
+        'created_at'
 	];
 
     /**
@@ -56,7 +58,8 @@ class Article extends Model
 		'content',
 		'url',
 		'url_to_image',
-		'update_at'
+        'updated_at',
+        'created_at'
 	];
 
     /**
@@ -74,4 +77,16 @@ class Article extends Model
 	{
 		return $this->belongsTo(\App\Models\Source::class);
 	}
+
+    /**
+     * Get article by url
+     *
+     * @param $url
+     * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
+     */
+    public static function getByUrl($url)
+    {
+        return self::query()->where('url' , '=' , $url)->first();
+    }
+
 }

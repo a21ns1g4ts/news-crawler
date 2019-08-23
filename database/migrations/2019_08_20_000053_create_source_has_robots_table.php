@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateSourceHasRobotsTable
+ */
 class CreateSourceHasRobotsTable extends Migration
 {
     /**
@@ -31,7 +34,7 @@ class CreateSourceHasRobotsTable extends Migration
 
 
             $table->foreign('source_id', 'fk_source_has_robots_source_idx')
-                ->references('id')->on('source')
+                ->references('id')->on('sources')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 

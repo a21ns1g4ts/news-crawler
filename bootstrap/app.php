@@ -46,6 +46,11 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->singleton(
+    \App\Discoverers\DiscoveryCategoryContract::class,
+    \App\Discoverers\DiscoveryAylienCategory::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware

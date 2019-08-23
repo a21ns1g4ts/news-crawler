@@ -11,7 +11,7 @@ interface DiscoveryContract
     /**
      * Detect the property of content
      *
-     * @return null/string
+     * @return void
      */
     public function detect();
 }

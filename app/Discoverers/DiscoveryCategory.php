@@ -6,7 +6,7 @@ namespace App\Discoverers;
  * Class DiscoveryCategory
  * @package App\Discoverers
  */
-class DiscoveryCategory implements DiscoveryContract
+class DiscoveryCategory implements DiscoveryContract, DiscoveryCategoryContract
 {
 
     /**
@@ -29,9 +29,19 @@ class DiscoveryCategory implements DiscoveryContract
     /**
      * Detect the property of content
      *
-     * @return null/string
+     * @return void
      */
     public function detect()
+    {
+
+    }
+
+    /**
+     * Get category
+     *
+     * @return mixed|null
+     */
+    public function getCategory()
     {
        return null;
     }

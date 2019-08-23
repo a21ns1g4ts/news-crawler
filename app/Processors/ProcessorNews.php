@@ -3,12 +3,15 @@
 namespace App\Processors;
 
 use App\Discoverers\DiscoveryCategory;
+use App\Discoverers\DiscoveryCategoryContract;
+use App\Discoverers\DiscoveryContract;
 use App\Http\ClientCrawler;
 use App\Models\Category;
 use App\Models\Source;
 use App\Robots\RobotContract;
 use App\Repositories\ArticleRepository;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class ProcessorNews
@@ -86,15 +89,9 @@ class ProcessorNews implements ProcessorContract
     {
         collect($data)->map(function ($data) {
 
-            $category = Category::getByName($data['category']);
+            $textToScan = isset($data['content']) ? $data['content'] : $data['description'];
 
-            if (!$category){
-                $textToScan = isset($data['content']) ? $data['content'] : $data['description'];
-                $categoryName = $this->getCategory($textToScan);
-                $category = Category::firstOrCreate('name' , ['name' => $categoryName]);
-            }
-
-            $data['category'] =  $category;
+            $data['category'] = $this->getCategory($textToScan);
 
             $this->articleRepository->sync($data, $this->source);
         });
@@ -102,13 +99,19 @@ class ProcessorNews implements ProcessorContract
 
     /**
      * @param $content
-     * @return Category|\Illuminate\Database\Eloquent\Model|object|null
+     * @return string
      */
     private function getCategory($content)
     {
-        $discovery = new DiscoveryCategory($content);
+        $discovery = app(DiscoveryCategoryContract::class, ['content' => $content]);
 
-        $category = $discovery->detect();
+        $discovery->detect();
+
+        $category = $discovery->getCategory();
+
+        if ($category){
+            $category = Category::getByName($category);
+        }
 
         if (!$category){
             $category = Category::getByName('Desconhecida');

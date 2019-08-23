@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $description
  *
- * @property \Illuminate\Database\Eloquent\Collection $news
+ * @property \Illuminate\Database\Eloquent\Collection $articles
  *
  * @method create($data)
  *
@@ -35,7 +35,7 @@ class Category extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function news()
+    public function articles()
 	{
 		return $this->hasMany(\App\Models\Article::class);
 	}
@@ -51,21 +51,4 @@ class Category extends Model
         return self::query()->where('name' , '=' , $name)->first();
     }
 
-    /**
-     * Get first or create a new category
-     *
-     * @param $coll
-     * @param $data
-     * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
-     */
-    public static function firstOrCreate($coll, $data)
-    {
-        $categoty = self::query()->where($coll , '=' , $data[$coll])->first();
-
-        if (!$categoty) {
-           $categoty = self::query()->create($data);
-        }
-
-        return $categoty;
-    }
 }

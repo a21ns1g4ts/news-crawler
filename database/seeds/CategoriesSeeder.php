@@ -18,6 +18,7 @@ class CategoriesSeeder extends Seeder
     {
         $this->category = $category;
     }
+
     /**
      * Run the database seeds.
      *
@@ -36,43 +37,46 @@ class CategoriesSeeder extends Seeder
     private function data(){
         return [
             [
-                'name' => 'Desconhecida',
+                'name' => 'Desconhecida', // 1
             ],
             [
-                'name' => 'Geral',
+                'name' => 'Geral', // 2
             ],
             [
-                'name' => 'Impostos',
+                'name' => 'Impostos', // 3
             ],
             [
-                'name' => 'Tributos',
+                'name' => 'Tributos', // 4
             ],
             [
-                'name' => 'Esporte',
+                'name' => 'Esporte', // 5
             ],
             [
-                'name' => 'Saúde',
+                'name' => 'Saúde', // 6
             ],
             [
-                'name' => 'Educação',
+                'name' => 'Educação', // 7
             ],
             [
-                'name' => 'Economia',
+                'name' => 'Economia', // 8
             ],
             [
-                'name' => 'Política',
+                'name' => 'Governo', // 9
             ],
             [
-                'name' => 'Gastronomia',
+                'name' => 'Política', // 10
             ],
             [
-                'name' => 'Turismo',
+                'name' => 'Gastronomia', // 11
             ],
             [
-                'name' => 'Inclusão Social',
+                'name' => 'Turismo', // 12
             ],
             [
-                'name' => 'Eventos',
+                'name' => 'Inclusão Social', // 13
+            ],
+            [
+                'name' => 'Eventos',  // 14
             ]
         ];
     }

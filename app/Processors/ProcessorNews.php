@@ -23,7 +23,7 @@ class ProcessorNews implements ProcessorContract
     private $source;
 
     /**
-     * @var \Laravel\Lumen\Application|mixed
+     * @var ArticleRepository
      */
     private $articleRepository;
 
@@ -80,18 +80,18 @@ class ProcessorNews implements ProcessorContract
     }
 
     /**
-     * @param array $data
+     * @param array $article
      * @return mixed|void
      */
-    public function syncObjects(array $data)
+    public function syncObjects(array $article)
     {
-        collect($data)->map(function ($data) {
+        collect($article)->map(function ($article) {
 
-            $textToScan = isset($data['content']) ? $data['content'] : $data['description'];
+            $textToScan = isset($article['content']) ? $article['content'] : $article['description'];
 
-            $data['category'] = $this->getCategory($textToScan, $data['url']);
+            $article['category'] = $this->getCategory($textToScan, $article['url']);
 
-            $this->articleRepository->sync($data, $this->source);
+            $this->articleRepository->sync($article, $this->source);
         });
     }
 
@@ -105,7 +105,7 @@ class ProcessorNews implements ProcessorContract
 
         $article = $this->articleRepository->getByUrl($url);
 
-        if (!isset($article->category)){
+        if (!$article){
             $discovery = app(DiscoveryCategoryContract::class, ['content' => $content]);
             $discovery->detect();
             $category = $discovery->getCategory();

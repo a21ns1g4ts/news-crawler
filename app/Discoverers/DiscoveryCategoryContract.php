@@ -13,7 +13,7 @@ interface DiscoveryCategoryContract
     /**
      * Get category
      *
-     * @return mixed
+     * @return string|null
      */
     public function getCategory();
 }

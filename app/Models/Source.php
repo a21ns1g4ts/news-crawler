@@ -78,6 +78,17 @@ class Source extends Model
     }
 
     /**
+     * Get source by name
+     *
+     * @param $name
+     * @return \Illuminate\Database\Eloquent\Builder|Model|object|null
+     */
+    public static function getByName($name)
+    {
+        return self::query()->where('name' , '=' , $name)->first();
+    }
+
+    /**
      * Get the pending sources to crawler
      *
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection

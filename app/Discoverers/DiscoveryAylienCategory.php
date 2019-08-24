@@ -53,17 +53,21 @@ class DiscoveryAylienCategory implements DiscoveryContract, DiscoveryCategoryCon
      */
     public function detect()
     {
-       $this->detected = $this->service->Entities(
+       $keyWords = $this->service->Entities(
            [
                'text' => $this->content,
                'language' => env('DISCOVERY_LANG')
            ]
-       )->entities->keyword;
+       )->entities;
+
+        $this->detected = isset($keyWords->keyword) ? $keyWords->keyword : [];
 
     }
 
     /**
-     * @return mixed|null
+     * Get the category
+     *
+     * @return string|null
      */
     public function getCategory()
     {
@@ -85,6 +89,12 @@ class DiscoveryAylienCategory implements DiscoveryContract, DiscoveryCategoryCon
             return $this->category = $categoriesCandidates[0];
         }
 
-        return Str::title($this->category);
+        $this->category = Str::title($this->category);
+
+        if (count($categoriesCandidates) === 0){
+            $this->category = null;
+        }
+
+        return $this->category;
     }
 }

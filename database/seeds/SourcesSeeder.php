@@ -70,6 +70,45 @@ class SourcesSeeder extends Seeder
                     ]
 
             ],
+            [
+                'name' => 'AGENCIA_PARA',
+                'description' => 'Notícias AGENCIA_PARA',
+                'url' => 'https://agenciapara.com.br/noticias.asp',
+                'robots' =>
+                    [
+                        [
+                            'function' => 'copiar_noticias_recentes',
+                            'model' => 'App\Robots\AgenciaParaNewsRobot'
+                        ]
+                    ]
+
+            ],
+            [
+                'name' => 'SENAI',
+                'description' => 'Notícias SENAI-PA',
+                'url' => 'https://www.senaipa.org.br/noticias',
+                'robots' =>
+                    [
+                        [
+                            'function' => 'copiar_noticias_recentes',
+                            'model' => 'App\Robots\SenaiNewsRobot'
+                        ]
+                    ]
+
+            ],
+            [
+                'name' => 'BRASIL',
+                'description' => 'Notícias BRASIL-GOV',
+                'url' => 'https://www.gov.br/pt-br/noticias/ultimas-noticias',
+                'robots' =>
+                    [
+                        [
+                            'function' => 'copiar_noticias_recentes',
+                            'model' => 'App\Robots\BrasilNewsRobot'
+                        ]
+                    ]
+
+            ],
         ];
 
     }

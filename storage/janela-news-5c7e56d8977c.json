@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "janela-news",
+  "private_key_id": "5c7e56d8977cb888b837e55967d9a218d5f43bfa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDD/DAT22AjHeYS\nwVJ/2U0a2kB8f5h4gVMLYu0qUHtIuZVb1s5DPCF/YOfbX6S9F6R7gl9xEQLFBhJp\nzwTBJZVg/66OLOTKbgMpMUEhjT1EfvZrUA91D2OXLDLeusXHbkvhoStEibANUqdV\nhMcFcp5H5sB+LhufrlW/u5OmFAFb1G1/5PjQykM1Og0V003kizliZ9a6P20n9nZE\nrdkEDCneZbaRusPFRZxDz22luXnDnARPY/R/WZv7+Swa5RZP0Eiw/Lkgf7vbTJi3\nY7/aLMtLbQu2DHBPO3dzYSNyxpPc063E7Se6jgkvNM6WZb9V+Fi6zO7GHCB9wdca\n/MYJVavhAgMBAAECggEAJjf8dy7Za1e2CXPGPxTU9rbXiv/F78AGfgqzZcROmmLI\nd+GmlRF5ldHDvTHEWjStWIGW06GF2P6jYhtjGbhWzlTmCSdDkZ9NAgAvK5gTudMJ\ngmlZLlKLMQyHOgyRq5+8b/piSeoQ2TREWga72fndWHetE54xuFzCr5Joi2NM1Yd6\nlAlmHVYWStyae+UogyeE7juuMH8Ry1JgTfugC+JJxpeXIsB9l/10NQey0rmMteqF\n1I+wG5gmG5rkjZJB3rt4aLuOCxwEN4qSCRKNnKEijAGxS3T+T65wZr+TgE+8+jna\nlzl1RwJgrsUJLJ+6gg0aPBDJXOGEPRvmwslMr5/LjQKBgQDyn4aLOvCrSc6tx4g4\nQk/DT+CaExMiQk4COPMySVGZIj9A0fRDsTnWPFHsc4RuSE7902Y7TPNRJGKihXTg\ntKbkL1W6Y2R//yGLzLmbvLOQYb6CXYEnnqUlkOwGrnfkjYQKIBTiCdfdgrugqEYk\nlL9wTo4BfdjEdZhGdeMAEzl/tQKBgQDOymU5vFNHU4byqxGQBryZSWK8tkqJ1h2Z\n/f/T0uT1JGx+U1SeIAN07zg9oN7ZH+e6ppEB3ky4BokUGSKkERY67ulggZp2r0Sk\ntohLj/XUL712qLeOkGmb9cw6DyxPnOTogOxkqzHq7k45aOE7Cp+TWmxCHWT2xewf\ncQYscOZe/QKBgAt+tWApVbe30nv3RSPtOFw3j5udJb3syEdgrV0Hjj8kGT0X9Wuz\nnNrilrsOKgsTj/KEroZGugxxHd83VXdD99g9yeD/zoYl70/xTiXrxdIkX2NLzM+0\nu3xRJm2WnIWOkt/r7zFaaAjNpdgRwOkAxyUqA55ceQWt0J4d/bhGMOY1AoGBAKiz\nExuj2Kiyqr/j8WL3K/s9lDBx4qNKK0IKph9PyHt46I2yO7D4WvmVguM8DzFAxxJN\nerT0ftAOfNwJmWoRinovl/KkKLg0SiK5yr0iR6GABOf9wimrBI04XBDtee/FBjXr\nn26M/x8ypFxPhJdfFknnFbRmOIzdcMFBupCc1kOdAoGASxBU5BFQi5fQJLAa1OqJ\njHBqUFjoVAOXbApKJ8lJTbJTzR2aV06wyKVPvf6Fuhw0JXUL+WJ+y8il1Yvs/wbS\n2h4RelLBtKqRhwlAafMLbplv8p5XQjM/A+N5ZF0gxjH85J7TgRp9PIXLCCqPBxDA\nJhxBT9450HNe5SI66FuAirE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "starting-account-xpv4pm5lgtj8@janela-news.iam.gserviceaccount.com",
+  "client_id": "101335038169911665518",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/starting-account-xpv4pm5lgtj8%40janela-news.iam.gserviceaccount.com"
+}

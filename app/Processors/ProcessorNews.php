@@ -2,19 +2,17 @@
 
 namespace App\Processors;
 
-use App\Discoverers\DiscoveryCategory;
 use App\Discoverers\DiscoveryCategoryContract;
-use App\Discoverers\DiscoveryContract;
 use App\Http\ClientCrawler;
 use App\Models\Category;
 use App\Models\Source;
 use App\Robots\RobotContract;
 use App\Repositories\ArticleRepository;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class ProcessorNews
+ *
  * @package App\Processors
  */
 class ProcessorNews implements ProcessorContract
@@ -107,20 +105,18 @@ class ProcessorNews implements ProcessorContract
 
         $article = $this->articleRepository->getByUrl($url);
 
-        if (!$article){
+        if (!isset($article->category)){
             $discovery = app(DiscoveryCategoryContract::class, ['content' => $content]);
             $discovery->detect();
             $category = $discovery->getCategory();
-        }else{
-            $category = $article->cateogory;
         }
 
-        if ($category){
+        if (!isset($article->category) && isset($category)){
             $category = Category::getByName($category);
         }
 
-        if (!$category){
-            $category = Category::getByName('Desconhecida');
+        if (!isset($category)){
+            $category = Category::getByName('Geral');
         }
 
         return $category;

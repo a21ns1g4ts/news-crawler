@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Article;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -52,15 +53,31 @@ class ArticleRepository
 
     /**
      * @param $category
-     * @param int $perPage
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getByCategory($category, $perPage = 30){
+    public function getByCategory($category)
+    {
+        $category = Category::getByName($category);
+
         return $this->model
             ->newQuery()
-            ->whereHas('category' , function (Builder $query) use ($category){
-                return $query->where('category.name' , '=' , $category);
+            ->when(!isset($category->name) , function (Builder $query) use ($category){
+                return $query->where('title' , '=' , 'a$');
             })
-            ->paginate($perPage);
+            ->when(isset($category->name) , function (Builder $query) use ($category){
+                return $query->whereHas('category' , function (Builder $query) use ($category){
+                    return $query->where('categories.name' , '=' , $category->name);
+                });
+            })->get();
+    }
+
+    /**
+     * @param $url
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getByUrl($url){
+        return $this->model
+            ->newQuery()
+            ->where('url' , '=' , $url)->get();
     }
 }

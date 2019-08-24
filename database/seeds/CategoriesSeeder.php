@@ -37,46 +37,28 @@ class CategoriesSeeder extends Seeder
     private function data(){
         return [
             [
-                'name' => 'Desconhecida', // 1
+                'name' => 'Geral', // 1
             ],
             [
-                'name' => 'Geral', // 2
+                'name' => 'Impostos', // 2
             ],
             [
-                'name' => 'Impostos', // 3
+                'name' => 'Educação', // 3
             ],
             [
-                'name' => 'Tributos', // 4
+                'name' => 'Economia', // 4
             ],
             [
-                'name' => 'Esporte', // 5
+                'name' => 'Governo', // 5
             ],
             [
-                'name' => 'Saúde', // 6
+                'name' => 'Política', // 6
             ],
             [
-                'name' => 'Educação', // 7
+                'name' => 'Cursos', // 7
             ],
             [
-                'name' => 'Economia', // 8
-            ],
-            [
-                'name' => 'Governo', // 9
-            ],
-            [
-                'name' => 'Política', // 10
-            ],
-            [
-                'name' => 'Gastronomia', // 11
-            ],
-            [
-                'name' => 'Turismo', // 12
-            ],
-            [
-                'name' => 'Inclusão Social', // 13
-            ],
-            [
-                'name' => 'Eventos',  // 14
+                'name' => 'Eventos',  // 8
             ]
         ];
     }

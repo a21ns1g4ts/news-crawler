@@ -11,6 +11,5 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/categories', 'NewsController@categories');
+$router->get('/articles', 'NewsController@articles');

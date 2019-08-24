@@ -62,6 +62,19 @@ $app->singleton(
 |
 */
 
+$app->configure('cors');
+
+$app->register(\Barryvdh\Cors\ServiceProvider::class);
+
+$app->routeMiddleware([
+    'news' => App\Http\Middleware\JanelaNewsMiddleware::class,
+]);
+
+$app->middleware([
+    \Barryvdh\Cors\HandleCors::class,
+]);
+
+
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
@@ -81,7 +94,8 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+ $app->register(App\Providers\AppServiceProvider::class);
+
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
@@ -98,6 +112,7 @@ $app->singleton(
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
+    'middleware' => 'news'
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });

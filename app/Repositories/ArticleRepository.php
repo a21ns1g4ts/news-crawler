@@ -73,11 +73,11 @@ class ArticleRepository
 
     /**
      * @param $url
-     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     * @return Builder|\Illuminate\Database\Eloquent\Model|object
      */
     public function getByUrl($url){
         return $this->model
             ->newQuery()
-            ->where('url' , '=' , $url)->get();
+            ->where('url' , '=' , $url)->first();
     }
 }

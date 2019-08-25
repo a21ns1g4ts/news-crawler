@@ -31,8 +31,8 @@ class CreateArticlesTable extends Migration
             $table->string('author', 100)->nullable();
             $table->text('description');
             $table->text('content')->nullable();
-            $table->string('url', 250);
-            $table->string('url_to_image', 250)->nullable();
+            $table->text('url');
+            $table->text('url_to_image')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 

@@ -48,7 +48,7 @@ $app->singleton(
 
 $app->singleton(
     \App\Discoverers\DiscoveryCategoryContract::class,
-    \App\Discoverers\DiscoveryAylienCategory::class
+    \App\Discoverers\DiscoveryGoogleCategory::class
 );
 
 /*

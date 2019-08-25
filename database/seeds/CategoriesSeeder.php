@@ -40,25 +40,25 @@ class CategoriesSeeder extends Seeder
                 'name' => 'Geral', // 1
             ],
             [
-                'name' => 'Impostos', // 2
+                'name' => 'Educação', // 2
             ],
             [
-                'name' => 'Educação', // 3
+                'name' => 'Economia', // 3
             ],
             [
-                'name' => 'Economia', // 4
+                'name' => 'Governo', // 4
             ],
             [
-                'name' => 'Governo', // 5
+                'name' => 'Política', // 5
             ],
             [
-                'name' => 'Política', // 6
+                'name' => 'Eventos',  // 6
             ],
             [
-                'name' => 'Cursos', // 7
+                'name' => 'Saúde',  // 7
             ],
             [
-                'name' => 'Eventos',  // 8
+                'name' => 'Sociedade',  // 8
             ]
         ];
     }

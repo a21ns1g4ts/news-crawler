@@ -39,8 +39,7 @@ class SenacNewsRobot extends RobotAbstract implements RobotContract
                     'url_to_image' => $node->filter('li figure a img')->first()->attr('src'),
                     'description' => $node->filter('li .media-body p')->first()->text(),
                     'category' => Str::title($node->filter('li .media-body span a')->first()->text()),
-                    'created_at' => Carbon::make($node->filter('li .media-body span span meta')->first()->attr('content'))->format('Y-m-d h:i:s'),
-                    'updated_at' => Carbon::make($node->filter('li .media-body span span meta')->first()->attr('content'))->format('Y-m-d h:i:s'),
+                    'created_at' => Carbon::make($node->filter('li .media-body span span meta')->first()->attr('content'))->format('Y-m-d h:i:s')
                 ];
            });
 

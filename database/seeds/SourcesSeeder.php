@@ -109,6 +109,32 @@ class SourcesSeeder extends Seeder
                     ]
 
             ],
+            [
+                'name' => 'CAMARA_BRASIL',
+                'description' => 'Notícias CAMARA_BRASIL-GOV',
+                'url' => 'https://www.camara.leg.br/noticias/rss/ultimas-noticias',
+                'robots' =>
+                    [
+                        [
+                            'function' => 'copiar_noticias_recentes',
+                            'model' => 'App\Robots\CamaraBrasilNewsRobot'
+                        ]
+                    ]
+
+            ],
+            [
+                'name' => 'SENADO_BRASIL',
+                'description' => 'Notícias SENADO_BRASIL-GOV',
+                'url' => 'https://www12.senado.leg.br/noticias',
+                'robots' =>
+                    [
+                        [
+                            'function' => 'copiar_noticias_recentes',
+                            'model' => 'App\Robots\SenadoBrasilNewsRobot'
+                        ]
+                    ]
+
+            ],
         ];
 
     }

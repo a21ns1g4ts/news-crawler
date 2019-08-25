@@ -35,6 +35,7 @@ class BrasilNewsRobot extends RobotAbstract implements RobotContract
 
         $articles = $crawler
             ->each(function (Crawler $node) {
+
                 $url = $node->filter('img')->first()->count() === 1 ? $node->filter('img')->first()->attr('src') : null;
 
                 return [
@@ -43,7 +44,7 @@ class BrasilNewsRobot extends RobotAbstract implements RobotContract
                     'url_to_image' =>$url,
                     'description' => $node->filter('.tileBody .description')->first()->text(),
                     'category' => Str::title($node->filter('span')->first()->text()),
-                    'create_at' => Carbon::createFromFormat('dmY' , Str::slug($node->filter('.documentByLine .summary-view-icon')->first()->text()))->format('Y-m-d') .' '. Str::slug($node->filter('.documentByLine .summary-view-icon')->eq(1)->text()),
+                    'created_at' => Carbon::createFromFormat('dmY' , Str::slug($node->filter('.documentByLine .summary-view-icon')->first()->text()))->format('Y-m-d') .' '. Str::slug($node->filter('.documentByLine .summary-view-icon')->eq(1)->text()),
                 ];
             });
 

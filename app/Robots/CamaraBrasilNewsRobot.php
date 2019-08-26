@@ -39,7 +39,7 @@ class CamaraBrasilNewsRobot extends RobotAbstract implements RobotContract
 
                 return [
                     'title' => $node->filter('title')->first()->text(),
-                    'url' => str_replace('www.camara.leg.br','', $node->filter('link')->first()->text()),
+                    'url' => 'https:'.explode(':' ,  $node->filter('link')->first()->text())[1],
                     'url_to_image' => '',
                     'description' => $description,
                     'content' => strip_tags($node->filter('content|encoded')->first()->text()),

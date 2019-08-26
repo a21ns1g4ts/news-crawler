@@ -55,7 +55,7 @@ class CategoriesSeeder extends Seeder
                 'name' => 'Eventos',  // 6
             ],
             [
-                'name' => 'Saúde',  // 7
+                'name' => 'Negócios',  // 7
             ],
             [
                 'name' => 'Sociedade',  // 8

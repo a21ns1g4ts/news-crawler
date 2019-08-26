@@ -3,7 +3,6 @@
 namespace App\Robots;
 
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -40,10 +39,10 @@ class CamaraBrasilNewsRobot extends RobotAbstract implements RobotContract
 
                 return [
                     'title' => $node->filter('title')->first()->text(),
-                    'url' => $node->filter('link')->first()->text(),
+                    'url' => str_replace('www.camara.leg.br','', $node->filter('link')->first()->text()),
                     'url_to_image' => '',
                     'description' => $description,
-                    'content' => $node->filter('content|encoded')->first()->text(),
+                    'content' => strip_tags($node->filter('content|encoded')->first()->text()),
                     'created_at' => Carbon::make($node->filter('pubDate')->first()->text())->format('Y-m-d h:i:s'),
                 ];
 

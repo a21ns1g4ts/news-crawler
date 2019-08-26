@@ -117,4 +117,10 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
+$app->router->group([
+    'namespace' => 'App\Http\Controllers',
+], function ($router) {
+    $router->get('/sources/{name}', 'SourceController@index');
+});
+
 return $app;

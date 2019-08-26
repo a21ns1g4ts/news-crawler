@@ -74,7 +74,7 @@ class DiscoveryGoogleCategory implements DiscoveryContract, DiscoveryCategoryCon
             $languageServiceClient->close();
         }
 
-        $this->category = $categoriesCandidates[0];
+        $this->category = isset($categoriesCandidates[0]) ? $categoriesCandidates[0] : null;
     }
 
     /**

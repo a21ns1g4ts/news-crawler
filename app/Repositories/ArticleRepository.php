@@ -68,7 +68,10 @@ class ArticleRepository
                 return $query->whereHas('category' , function (Builder $query) use ($category){
                     return $query->where('categories.name' , '=' , $category->name);
                 });
-                })->get()->take(8);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->take(30);
     }
 
     /**

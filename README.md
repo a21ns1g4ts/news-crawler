@@ -99,7 +99,7 @@ Configurar crontab no sistema operacional
 
 Adicionar seguinte linha
 
-* * * * * php /<localização do diretório do projeto>/janela_news/artisan schedule:run >> /dev/null$
+    * * * * * php /<localização do diretório do projeto>/janela_news/artisan schedule:run >> /dev/null$
 
 Salvar e acessar o arquivo de log para verificar se os robos estão em funcionando de acordo com as configurações do ciclo de atividade:
 

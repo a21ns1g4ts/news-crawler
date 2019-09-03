@@ -166,7 +166,7 @@ Para encerrar o serviço use:
 
     $ sudo docker-compose down
     
-Acesse o endereço: http://conecta-janelaunica.local 
+Acesse o endereço: http://janela-news.local   
 
 PS: Se você possuí o apache ou ngnix instalado o seu S.O então você precisa liberar a porta 80
 ou modificar a ponte no arquivo docker-compose.yml  

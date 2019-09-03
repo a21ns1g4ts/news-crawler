@@ -1,7 +1,7 @@
 version: "3"
 services:
   app:
-    image: janela-news
+    image: "janela/news"
     container_name: janela-news
     build:
       context: .
@@ -10,7 +10,7 @@ services:
       - redis
       - mysql
     ports:
-      - 8080:80
+      - "80:80"
     volumes:
       - .:/var/www/html
     environment:
@@ -32,7 +32,7 @@ services:
     #restart: always
 
   scheduler:
-    image: janela-news
+    image: "janela/news"
     container_name: janela-news-scheduler
     depends_on:
       - app
@@ -48,7 +48,7 @@ services:
     #restart: always
 
   queue:
-    image: janela-news
+    image: "janela/news"
     container_name: janela-news-queue
     depends_on:
       - app

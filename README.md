@@ -144,4 +144,32 @@ Acrescentar host ao arquivo `/etc/hosts`
 
 Acessar o endereço: http://news.janelaunica.com.br
 
+###  Usando o docker
+
+Instale o docker e o docker-compose
+
+    $ sudo apt-get update
+    $ sudo apt-get install docker
+    $ sudo apt-get install docker-compose
+    
+Após instalar os programas execute os seguintes comandos na pasta raiz do projeto.    
+
+Faça o build da imagem do projeto:
+
+    $ sudo docker-compose build
+
+Levante o container:
+
+    $ sudo docker-compose up
+    
+Para encerrar o serviço use:   
+
+    $ sudo docker-compose down
+    
+Acesse o endereço: http://conecta-janelaunica.local 
+
+PS: Se você possuí o apache ou ngnix instalado o seu S.O então você precisa liberar a porta 80
+ou modificar a ponte no arquivo docker-compose.yml  
+`ports:- "80:80"` => porta do que será mapeada para o S.O:porta interna na rede do container
+
 # Fim

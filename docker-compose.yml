@@ -1,0 +1,79 @@
+version: "3"
+services:
+  app:
+    image: janela-news
+    container_name: janela-news
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - redis
+      - mysql
+    ports:
+      - 8080:80
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: local
+      CONTAINER_ROLE: app
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis
+
+  redis:
+    container_name: janela-news-redis
+    image: redis:4-alpine
+    ports:
+      - 16379:6379
+    volumes:
+      - redis:/data
+
+  scheduler:
+    image: janela-news
+    container_name: janela-news-scheduler
+    depends_on:
+      - app
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: local
+      CONTAINER_ROLE: scheduler
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis
+
+  queue:
+    image: janela-news
+    container_name: janela-news-queue
+    depends_on:
+      - app
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: local
+      CONTAINER_ROLE: queue
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis
+
+  mysql:
+    container_name: janela-news-mysql
+    image: mysql:5.7
+    ports:
+      - 13306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: homestead
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+
+volumes:
+  redis:
+    driver: "local"
+  mysql:
+    driver: "local"

@@ -10,7 +10,7 @@ services:
       - redis
       - mysql
     ports:
-      - "80:80"
+      - "9090:80"
     volumes:
       - .:/var/www/html
     environment:

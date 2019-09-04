@@ -5,7 +5,7 @@ services:
     container_name: janela-news
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: "docker/${APP_SERVER}/Dockerfile"
     depends_on:
       - redis
       - mysql

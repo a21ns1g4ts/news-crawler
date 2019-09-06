@@ -61,6 +61,7 @@ class ArticleRepository
 
         return $this->model
             ->newQuery()
+            ->where('url_to_image' , '!=' , '')
             ->when(!isset($category->name) , function (Builder $query) use ($category){
                 return $query->where('title' , '=' , 'a$');
             })

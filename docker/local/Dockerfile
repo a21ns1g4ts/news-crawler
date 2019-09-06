@@ -1,12 +1,17 @@
 FROM php:7.2-apache-stretch
 
 COPY . /var/www/html
+
 COPY docker/local/vhost.conf /etc/apache2/sites-available/000-default.conf
+
 COPY docker/start.sh /usr/local/bin/start
 
-# Install PHP extensions
+RUN apt-get update && apt-get install -y \
+    git
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 RUN apt-get update -yqq \
-    # Install libs for building PHP exts
     && apt-get install -yqq --no-install-recommends \
         libicu-dev \
         libpq-dev \
@@ -17,11 +22,8 @@ RUN apt-get update -yqq \
         unzip \
         nano \
         mysql-client \
-    # Install PHP Exts
     && docker-php-ext-install \
         pdo_mysql \
-        pdo_pgsql \
-        pgsql \
         zip \
         opcache \
         ctype \

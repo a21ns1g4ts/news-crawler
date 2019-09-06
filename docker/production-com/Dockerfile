@@ -2,7 +2,7 @@ FROM php:7.2-apache-stretch
 
 COPY . /var/www/html
 COPY docker/production-com/vhost.conf /etc/apache2/sites-available/000-default.conf
-#COPY docker/vhost-ssl.conf /etc/apache2/sites-available/000-default-ssl.conf
+#COPY docker/production-com/vhost-ssl.conf /etc/apache2/sites-available/000-default-ssl.conf
 
 #COPY docker/production-com/ssl-keys/janela-news.crt /etc/ssl/certs/janela-news.crt
 #COPY docker/production-com/ssl-keys/janela-news.key /etc/ssl/certs/janela-news.key
@@ -10,9 +10,7 @@ COPY docker/production-com/vhost.conf /etc/apache2/sites-available/000-default.c
 
 COPY docker/start.sh /usr/local/bin/start
 
-# Install PHP extensions
 RUN apt-get update -yqq \
-    # Install libs for building PHP exts
     && apt-get install -yqq --no-install-recommends \
         libicu-dev \
         libpq-dev \
@@ -23,11 +21,8 @@ RUN apt-get update -yqq \
         unzip \
         nano \
         mysql-client \
-    # Install PHP Exts
     && docker-php-ext-install \
         pdo_mysql \
-        pdo_pgsql \
-        pgsql \
         zip \
         opcache \
         ctype \

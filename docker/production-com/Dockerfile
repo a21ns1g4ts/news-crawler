@@ -1,7 +1,7 @@
 FROM php:7.2-apache-stretch
 
 COPY . /var/www/html
-COPY docker/vhost.conf /etc/apache2/sites-available/000-default.conf
+COPY docker/production-com/vhost.conf /etc/apache2/sites-available/000-default.conf
 #COPY docker/vhost-ssl.conf /etc/apache2/sites-available/000-default-ssl.conf
 
 #COPY docker/production-com/ssl-keys/janela-news.crt /etc/ssl/certs/janela-news.crt

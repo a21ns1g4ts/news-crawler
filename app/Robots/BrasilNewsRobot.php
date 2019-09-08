@@ -38,6 +38,8 @@ class BrasilNewsRobot extends RobotAbstract implements RobotContract
 
                 $url = $node->filter('img')->first()->count() === 1 ? $node->filter('img')->first()->attr('src') : null;
 
+                $url = explode('/@' , $url)[0];
+
                 $hour = explode('h' , Str::slug($node->filter('.documentByLine .summary-view-icon')->eq(1)->text()));
                 $hour = Carbon::createFromFormat(  'H:m'  , $hour[0]. ':' .$hour[0] )->format('H:m:s');
                 $date = Carbon::createFromFormat('dmY' , Str::slug($node->filter('.documentByLine .summary-view-icon')->first()->text()))->format('Y-m-d');

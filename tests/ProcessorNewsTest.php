@@ -19,7 +19,7 @@ class ProcessorNewsTest extends TestCase
         $process =  new \App\Processors\ProcessorNews($robot, $source);
 
         try{
-            $process->start();
+            $process->handle();
         }catch (\Exception $exception){
             $this->throwException($exception);
         }

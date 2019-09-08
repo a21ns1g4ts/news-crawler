@@ -4,22 +4,23 @@ namespace App\Processors;
 
 /**
  * Interface ProcessorContract
+ *
  * @package App\Processors
  */
 interface ProcessorContract
 {
     /**
-     * Sync objects given by robots
+     * Sync data given by robots
      *
      * @param array $data
      * @return mixed
      */
-    public function syncObjects(array $data);
+    public function syncData(array $data);
 
     /**
-     * Start the robot
+     * Handle processor
      *
      * @return void
      */
-    public function start();
+    public function handle();
 }

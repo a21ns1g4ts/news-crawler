@@ -63,14 +63,14 @@ class ProcessorNews implements ProcessorContract
      *
      * @return void
      */
-    public function start()
+    public function handle()
     {
         $this->logger->init();
 
         try {
             $html = $this->client->request('', 'GET')->getBody()->getContents();
             $articles = $this->robot->scan($html);
-            $this->syncObjects($articles);
+            $this->syncData($articles);
         } catch (GuzzleException $e) {
             $this->logger->fail($e);
             new \Exception($e->getMessage(), $e->getCode());
@@ -83,7 +83,7 @@ class ProcessorNews implements ProcessorContract
      * @param array $article
      * @return mixed|void
      */
-    public function syncObjects(array $article)
+    public function syncData(array $article)
     {
         collect($article)->map(function ($article) {
 

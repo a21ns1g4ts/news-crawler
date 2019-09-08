@@ -44,7 +44,7 @@ class ScanNewsJob extends Job
         $source = $job->getSource();
 
         $processor = new ProcessorNews($robot, $source);
-        $processor->start();
+        $processor->handle();
 
         $job->removeFromQueue($source);
     }

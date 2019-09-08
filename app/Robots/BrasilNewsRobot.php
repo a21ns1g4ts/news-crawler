@@ -36,9 +36,9 @@ class BrasilNewsRobot extends RobotAbstract implements RobotContract
         $articles = $crawler
             ->each(function (Crawler $node) {
 
-                $url = $node->filter('img')->first()->count() === 1 ? $node->filter('img')->first()->attr('src') : null;
+                $urlToImage = $node->filter('img')->first()->count() === 1 ? $node->filter('img')->first()->attr('src') : null;
 
-                $url = explode('/@' , $url)[0];
+                $urlToImage = explode('/@' , $urlToImage)[0];
 
                 $hour = explode('h' , Str::slug($node->filter('.documentByLine .summary-view-icon')->eq(1)->text()));
                 $hour = Carbon::createFromFormat(  'H:m'  , $hour[0]. ':' .$hour[0] )->format('H:m:s');
@@ -47,7 +47,7 @@ class BrasilNewsRobot extends RobotAbstract implements RobotContract
                 return [
                     'title' => $node->filter('h2 a')->first()->text(),
                     'url' => $node->filter('a')->first()->attr('href'),
-                    'url_to_image' =>$url,
+                    'url_to_image' =>$urlToImage,
                     'description' => $node->filter('.tileBody .description')->first()->text(),
                     'category' => Str::title($node->filter('span')->first()->text()),
                     'created_at' => "$date $hour"

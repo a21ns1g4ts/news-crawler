@@ -49,16 +49,7 @@ class CategoriesSeeder extends Seeder
                 'name' => 'Governo', // 4
             ],
             [
-                'name' => 'Política', // 5
-            ],
-            [
-                'name' => 'Eventos',  // 6
-            ],
-            [
-                'name' => 'Negócios',  // 7
-            ],
-            [
-                'name' => 'Sociedade',  // 8
+                'name' => 'Negócios',  // 5
             ]
         ];
     }

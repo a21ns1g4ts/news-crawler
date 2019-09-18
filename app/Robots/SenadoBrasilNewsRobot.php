@@ -34,16 +34,12 @@ class SenadoBrasilNewsRobot extends RobotAbstract implements RobotContract
 
         $articles = $crawler
            ->each(function (Crawler $node) use ($baseUrl){
-
-               $date = explode('/' ,$node->filter('a')->first()->attr('href'));
-               $date = Carbon::create($date[3] ,$date[4], $date[5])->format('Y-m-d h:i:s');
-
                return [
                     'title' => $node->filter('.Media-body a span')->first()->text(),
                     'url' => $baseUrl . $node->filter('a')->first()->attr('href'),
                     'url_to_image' => $baseUrl . $node->filter('a img')->first()->attr('src'),
                     'description' => $node->filter('.Manchete-descricao p')->first()->text(),
-                    'created_at' => $date
+                    'created_at' => Carbon::now()
                 ];
            });
 

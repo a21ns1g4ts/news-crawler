@@ -37,7 +37,8 @@ class NewsQueue implements QueueContract
             ->newQuery()
             ->orderBy('updated_at' , 'asc')
             ->whereHas('robots' , function (Builder $query){
-                return  $query->where('function', '=' , 'copiar_noticias_recentes');
+                return  $query->where('function', '=' , 'copiar_noticias_recentes')
+                    ->where('health' , '=' , 'health');
             })
             ->first();
 

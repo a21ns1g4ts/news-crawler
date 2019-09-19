@@ -130,6 +130,7 @@ class SourcesSeeder extends Seeder
                     [
                         [
                             'function' => 'copiar_noticias_recentes',
+                            'health' => 'sick',
                             'model' => 'App\Robots\SenadoBrasilNewsRobot'
                         ]
                     ]

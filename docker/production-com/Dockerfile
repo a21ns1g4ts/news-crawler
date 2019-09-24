@@ -1,14 +1,19 @@
 FROM php:7.2-apache-stretch
 
 COPY . /var/www/html
+
 COPY docker/production-com/vhost.conf /etc/apache2/sites-available/000-default.conf
-COPY docker/production-com/vhost-ssl.conf /etc/apache2/sites-available/000-default-ssl.conf
+COPY docker/production-com/vhost-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 
 COPY docker/production-com/ssl-keys/www_news_janelaunica.crt /etc/ssl/certs/janela-news.crt
-COPY docker/production-com/ssl-keys/www_news_janelaunica-news.key /etc/ssl/certs/janela-news.key
-
+COPY docker/production-com/ssl-keys/www_news_janelaunica.key /etc/ssl/certs/janela-news.key
 
 COPY docker/start.sh /usr/local/bin/start
+
+RUN apt-get update && apt-get install -y \
+    git
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update -yqq \
     && apt-get install -yqq --no-install-recommends \
@@ -28,7 +33,6 @@ RUN apt-get update -yqq \
         ctype \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
-    # Remove dev packages
     && apt-get remove --purge -yyq libicu-dev \
         libpq-dev \
         libmcrypt-dev \
@@ -37,8 +41,26 @@ RUN apt-get update -yqq \
         libmcrypt-dev \
     && rm -r /var/lib/apt/lists/*
 
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
 RUN chown -R www-data:www-data /var/www/html \
     && chmod u+x /usr/local/bin/start \
-    && a2enmod rewrite
+    && a2enmod rewrite \
+    && a2enmod ssl
+
+RUN (cd /etc/apache2/sites-available && a2ensite default-ssl.conf)
+
+RUN mkdir -p /var/run/apache2/
+
+RUN useradd -ms /bin/bash  composer
+
+USER composer
+
+RUN (cd /var/www/html && composer install --no-dev --no-interaction --optimize-autoloader)
+
+USER root
+
+EXPOSE 80
+EXPOSE 443
 
 CMD ["/usr/local/bin/start"]

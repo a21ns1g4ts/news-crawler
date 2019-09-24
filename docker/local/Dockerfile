@@ -42,4 +42,6 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod u+x /usr/local/bin/start \
     && a2enmod rewrite
 
+EXPOSE 80
+
 CMD ["/usr/local/bin/start"]

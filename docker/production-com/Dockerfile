@@ -1,5 +1,7 @@
 FROM php:7.2-apache-stretch
 
+COPY . /var/www/html
+
 COPY docker/production-com/vhost.conf /etc/apache2/sites-available/000-default.conf
 COPY docker/production-com/vhost-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 
@@ -12,16 +14,6 @@ RUN apt-get update && apt-get install -y \
     git
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-RUN useradd -ms /bin/bash  composer
-
-USER composer
-
-RUN (cd /var/www/html && composer install --no-dev --no-interaction --optimize-autoloader)
-
-USER root
-
-COPY . /var/www/html
 
 RUN apt-get update -yqq \
     && apt-get install -yqq --no-install-recommends \
@@ -59,6 +51,14 @@ RUN chown -R www-data:www-data /var/www/html \
 RUN (cd /etc/apache2/sites-available && a2ensite default-ssl.conf)
 
 RUN mkdir -p /var/run/apache2/
+
+RUN useradd -ms /bin/bash  composer
+
+USER composer
+
+RUN (cd /var/www/html && composer install --no-dev --no-interaction --optimize-autoloader)
+
+USER root
 
 EXPOSE 80
 EXPOSE 443

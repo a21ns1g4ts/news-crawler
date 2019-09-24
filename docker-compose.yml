@@ -10,9 +10,7 @@ services:
       - redis
       - mysql
     ports:
-      - "9090:80"
-    volumes:
-      - ./storage:/var/www/html/storage
+      - "80:80"
     environment:
       APP_ENV: local
       CONTAINER_ROLE: app
@@ -36,8 +34,6 @@ services:
     container_name: janela-news-scheduler
     depends_on:
       - app
-    volumes:
-      - .:/var/www/html
     environment:
       APP_ENV: local
       CONTAINER_ROLE: scheduler
@@ -52,8 +48,6 @@ services:
     container_name: janela-news-queue
     depends_on:
       - app
-    volumes:
-      - .:/var/www/html
     environment:
       APP_ENV: local
       CONTAINER_ROLE: queue

@@ -29,7 +29,6 @@ RUN apt-get update -yqq \
         ctype \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
-    # Remove dev packages
     && apt-get remove --purge -yyq libicu-dev \
         libpq-dev \
         libmcrypt-dev \
@@ -41,6 +40,20 @@ RUN apt-get update -yqq \
 RUN chown -R www-data:www-data /var/www/html \
     && chmod u+x /usr/local/bin/start \
     && a2enmod rewrite
+
+RUN mkdir -p /var/run/apache2/
+
+RUN (cd /var/www/html && rm -rf vendor)
+
+RUN useradd -ms /bin/bash  composer
+
+USER composer
+
+RUN (cd /var/www/html && composer install --no-dev --no-interaction --optimize-autoloader)
+
+USER root
+
+RUN if [ "$APP_KEY" = "" ] ; then (cd /var/www/html && php artisan key:generate) ; fi
 
 EXPOSE 80
 

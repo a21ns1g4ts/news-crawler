@@ -52,6 +52,8 @@ RUN (cd /etc/apache2/sites-available && a2ensite default-ssl.conf)
 
 RUN mkdir -p /var/run/apache2/
 
+RUN (cd /var/www/html && rm -rf vendor)
+
 RUN useradd -ms /bin/bash  composer
 
 USER composer
@@ -59,6 +61,8 @@ USER composer
 RUN (cd /var/www/html && composer install --no-dev --no-interaction --optimize-autoloader)
 
 USER root
+
+RUN if [ "$APP_KEY" = "" ] ; then (cd /var/www/html && php artisan key:generate) ; fi
 
 EXPOSE 80
 EXPOSE 443

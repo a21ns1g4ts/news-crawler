@@ -6,9 +6,6 @@ COPY docker/local/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 COPY docker/start.sh /usr/local/bin/start
 
-RUN apt-get update && apt-get install -y \
-    git
-
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update -yqq \
@@ -38,7 +35,8 @@ RUN apt-get update -yqq \
     && rm -r /var/lib/apt/lists/*
 
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod u+x /usr/local/bin/start \
+    && chmod -R 777 /var/www/html \
+    && ln -sfn /var/www/html/storage /var/www/html/public \
     && a2enmod rewrite
 
 RUN mkdir -p /var/run/apache2/
@@ -52,8 +50,6 @@ USER composer
 RUN (cd /var/www/html && composer install --no-dev --no-interaction --optimize-autoloader)
 
 USER root
-
-RUN if [ "$APP_KEY" = "" ] ; then (cd /var/www/html && php artisan key:generate) ; fi
 
 EXPOSE 80
 

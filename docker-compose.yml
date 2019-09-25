@@ -10,9 +10,10 @@ services:
       - redis
       - mysql
     ports:
-      - "80:80"
+      - "7071:80"
+      - "7072:443"
     environment:
-      APP_ENV: local
+      APP_ENV: ${APP_ENV}
       CONTAINER_ROLE: app
       CACHE_DRIVER: redis
       SESSION_DRIVER: redis

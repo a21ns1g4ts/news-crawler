@@ -35,6 +35,7 @@ RUN apt-get update -yqq \
     && rm -r /var/lib/apt/lists/*
 
 RUN chown -R www-data:www-data /var/www/html \
+    && chmod u+x /usr/local/bin/start \
     && chmod -R 777 /var/www/html \
     && ln -sfn /var/www/html/storage /var/www/html/public \
     && a2enmod rewrite

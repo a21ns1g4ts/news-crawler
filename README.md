@@ -3,12 +3,14 @@
 ### Web service de notícias
 
 # Requisitos do sistema
-  Para iniciar o processo de instalação são necessários
-* Ubunto 18.4 | Debian 9 
+
+Para iniciar o processo de instalação são necessários
+  
 * Git
 * Apache2 
 * PHP ^7.3
 * Composer ^1.6
+* Supervisor ^3.0
 
 ### Extensões do PHP
 
@@ -99,11 +101,7 @@ Configurar crontab no sistema operacional
 
 Adicionar seguinte linha
 
-    * * * * * php /<localização do diretório do projeto>/janela_news/artisan schedule:run >> /dev/null$
-
-Salvar e acessar o arquivo de log para verificar se os robos estão em funcionando de acordo com as configurações do ciclo de atividade:
-
-    $ tail -f /storage/logs/lumen-<ano-mes-dia>.log 
+    * * * * * php /<path_to_aplication>/artisan schedule:run >> /dev/null$
     
 Configurar o supervisor de trabalhos
 
@@ -111,9 +109,12 @@ Configurar o supervisor de trabalhos
         service supervisor status
         sudo groupadd supervisor    
         sudo usermod -a -G supervisor <seu usuário>
-        sudo nano /etc/supervisor/supervisord.conf
+
+Configurar supervisor 
+
+        sudo nano /etc/supervisor/supervisord.conf   
         
-Adicione o conteúdo: 
+Compare 
          
          ; supervisor config file
          
@@ -145,17 +146,17 @@ Adicione o conteúdo:
          [include]
          files = /etc/supervisor/conf.d/*.conf
          
- Reinicie o serviço:  
+Reinicie o serviço:  
          
          sudo service supervisor restart                 
 
-Adicione o supervisor para aplicação:
+Adicione um supervisor para aplicação:
 
         sudo nano /etc/supervisor/conf.d/janela-news.conf
         
         [program:janela-news-queue]
         process_name=%(program_name)s_%(process_num)02d
-        command=sudo php /<path_to_aplication>/artisan queue:work --tries=3 --daemon --queue=test -vvv
+        command=sudo php /home/atiladanvi/Projetos/janela_news/artisan queue:work --timeout=600
         user=root
         autostart=true
         autorestart=true
@@ -163,17 +164,12 @@ Adicione o supervisor para aplicação:
         redirect_stderr=true
         stdout_logfile=/<path_to_aplication>/storage/logs/test.log
 
-Finalizando:
+Ative as configurações realizadas:
         
         supervisorctl reread
         supervisorctl update
         supervisorctl status      
           
-Se tudo estiver ok então você verá o seguinte log por exemplo:
-
-    [2019-08-30 10:00:01] local.INFO: start robot: App\Robots\AgenciaParaNewsRobot function: copiar_noticias_recentes into source: <SOURCE>  
-    [2019-08-30 10:00:02] local.INFO: end robot: App\Robots\AgenciaParaNewsRobot function: copiar_noticias_recentes into source: <SOURCE>      
-
 ###   Configurar virtual host
 
 Configurar virtual host apontando para o diretório `/janela_news/public/`

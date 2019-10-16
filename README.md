@@ -104,7 +104,71 @@ Adicionar seguinte linha
 Salvar e acessar o arquivo de log para verificar se os robos estão em funcionando de acordo com as configurações do ciclo de atividade:
 
     $ tail -f /storage/logs/lumen-<ano-mes-dia>.log 
+    
+Configurar o supervisor de trabalhos
 
+        sudo apt install supervisor
+        service supervisor status
+        sudo groupadd supervisor    
+        sudo usermod -a -G supervisor <seu usuário>
+        sudo nano /etc/supervisor/supervisord.conf
+        
+Adicione o conteúdo: 
+         
+         ; supervisor config file
+         
+         [unix_http_server]
+         file=/var/run/supervisor.sock   ; (the path to the socket file)
+         chmod=0770                       ; sockef file mode (default 0700)
+         chown=root:supervisor
+         
+         [supervisord]
+         logfile=/var/log/supervisor/supervisord.log ; (main log file;default $CWD/supervisord.log)
+         pidfile=/var/run/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+         childlogdir=/var/log/supervisor            ; ('AUTO' child log dir, default $TEMP)
+         
+         ; the below section must remain in the config file for RPC
+         ; (supervisorctl/web interface) to work, additional interfaces may be
+         ; added by defining them in separate rpcinterface: sections
+         [rpcinterface:supervisor]
+         supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+         
+         [supervisorctl]
+         serverurl=unix:///var/run/supervisor.sock ; use a unix:// URL  for a unix socket
+         
+         ; The [include] section can just contain the "files" setting.  This
+         ; setting can list multiple files (separated by whitespace or
+         ; newlines).  It can also contain wildcards.  The filenames are
+         ; interpreted as relative to this file.  Included files *cannot*
+         ; include files themselves.
+         
+         [include]
+         files = /etc/supervisor/conf.d/*.conf
+         
+ Reinicie o serviço:  
+         
+         sudo service supervisor restart                 
+
+Adicione o supervisor para aplicação:
+
+        sudo nano /etc/supervisor/conf.d/janela-news.conf
+        
+        [program:janela-news-queue]
+        process_name=%(program_name)s_%(process_num)02d
+        command=sudo php /<path_to_aplication>/artisan queue:work --tries=3 --daemon --queue=test -vvv
+        user=root
+        autostart=true
+        autorestart=true
+        numprocs=1
+        redirect_stderr=true
+        stdout_logfile=/<path_to_aplication>/storage/logs/test.log
+
+Finalizando:
+        
+        supervisorctl reread
+        supervisorctl update
+        supervisorctl status      
+          
 Se tudo estiver ok então você verá o seguinte log por exemplo:
 
     [2019-08-30 10:00:01] local.INFO: start robot: App\Robots\AgenciaParaNewsRobot function: copiar_noticias_recentes into source: <SOURCE>  
@@ -121,7 +185,7 @@ Configurar virtual host apontando para o diretório `/janela_news/public/`
 * Copiar o conteúdo abaixo para o arquivo `janela_news.conf`      
     ```
     <VirtualHost *:80>
-        ServerName news.janelaunica.com.br
+        ServerName news-janelaunica.local
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/janela_news/public/
         
@@ -137,39 +201,11 @@ Configurar virtual host apontando para o diretório `/janela_news/public/`
     ```
 Acrescentar host ao arquivo `/etc/hosts`
           
-       $ sudo nano /etc/hosts
+     $ sudo nano /etc/hosts
 ```
-<ip do servidor>   news.janelaunica.com.br
+127.0.1.1  news-janelaunica.local
 ```
 
-Acessar o endereço: http://news.janelaunica.com.br
-
-###  Usando o docker
-
-Instale o docker e o docker-compose
-
-    $ sudo apt-get update
-    $ sudo apt-get install docker
-    $ sudo apt-get install docker-compose
-    
-Após instalar os programas execute os seguintes comandos na pasta raiz do projeto.    
-
-Faça o build da imagem do projeto:
-
-    $ sudo docker-compose build
-
-Levante o container:
-
-    $ sudo docker-compose up
-    
-Para encerrar o serviço use:   
-
-    $ sudo docker-compose down
-    
-Acesse o endereço: http://janela-news.local   
-
-PS: Se você possuí o apache ou ngnix instalado o seu S.O então você precisa liberar a porta 80
-ou modificar a ponte no arquivo docker-compose.yml  
-`ports:- "80:80"` => porta do que será mapeada para o S.O:porta interna na rede do container
+Acessar o endereço: http://news-janelaunica.local/sources/FIEPAZ
 
 # Fim

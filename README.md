@@ -28,7 +28,7 @@ Instalar os módulo do php.
     $ sudo apt-get install php7.3-bcmath
     $ sudo apt-get install php7.3-dom 
     $ sudo apt-get install php7.3-curl
-    $ sudo apt-get install php7.3-pgsql || $ sudo apt-get install php7.3-mysql
+    $ sudo apt-get install php7.3-mysql
 
 ## Instalação
 
@@ -93,16 +93,13 @@ Configurar as as seguintes variaveis no arquivo ` .env`
 
 Gerar chaves do sistema
 
-    $ php artisan key:generate
-
-Configurar crontab no sistema operacional
-
-    $ crontab -e 
-
-Adicionar seguinte linha
-
-    * * * * * php /<path_to_aplication>/artisan schedule:run >> /dev/null$
+     php artisan key:generate
     
+Migrar e popular base de dados
+
+     php artisan migrate:fresh --seed
+     
+     
 Configurar o supervisor de trabalhos
 
         sudo apt install supervisor
@@ -152,23 +149,31 @@ Reinicie o serviço:
 
 Adicione um supervisor para aplicação:
 
-        sudo nano /etc/supervisor/conf.d/janela-news.conf
+        sudo nano /etc/supervisor/conf.d/queue.conf
         
-        [program:janela-news-queue]
+        [program:queue]
         process_name=%(program_name)s_%(process_num)02d
-        command=sudo php /home/atiladanvi/Projetos/janela_news/artisan queue:work --timeout=600
+        command=sudo php /<path_to_aplication>/artisan queue:work --timeout=600
         user=root
         autostart=true
         autorestart=true
         numprocs=1
         redirect_stderr=true
-        stdout_logfile=/<path_to_aplication>/storage/logs/test.log
+        stdout_logfile=/<path_to_aplication>/storage/logs/news-queue.log
 
 Ative as configurações realizadas:
         
-        supervisorctl reread
-        supervisorctl update
-        supervisorctl status      
+        sudo supervisorctl reread
+        sudo supervisorctl update
+        sudo supervisorctl status      
+        
+Configurar crontab no sistema operacional
+
+     crontab -e 
+
+Adicionar seguinte linha
+
+    * * * * * cd /<path_path_to_aplication> && php artisan schedule:run >> /dev/null 2>&1
           
 ###   Configurar virtual host
 
@@ -202,6 +207,6 @@ Acrescentar host ao arquivo `/etc/hosts`
 127.0.1.1  news-janelaunica.local
 ```
 
-Acessar o endereço: http://news-janelaunica.local/sources/FIEPAZ
+Acessar o endereço: http://news-janelaunica.local/sources/FIEPA
 
 # Fim

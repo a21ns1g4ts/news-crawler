@@ -7,6 +7,7 @@ COPY docker/production-com/vhost-ssl.conf /etc/apache2/sites-available/default-s
 
 COPY docker/production-com/ssl-keys/www_news_janelaunica.crt /etc/ssl/certs/janela-news.crt
 COPY docker/production-com/ssl-keys/www_news_janelaunica.key /etc/ssl/certs/janela-news.key
+COPY docker/production-com/ssl-keys/www_news_janelaunica.ca-bundle /etc/ssl/certs/janela-news.ca-bundle
 
 COPY docker/start.sh /usr/local/bin/start
 
